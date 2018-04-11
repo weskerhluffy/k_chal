@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- XXX: https://www.mkyong.com/spring-boot/spring-boot-test-how-to-stop-debug-logs/ -->
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+	<logger name="org" level="DEBUG"/>
+    <logger name="com" level="DEBUG"/>
+    <logger name="k" level="DEBUG"/>
+</configuration>

@@ -3,9 +3,12 @@ package k.engine;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import org.springframework.stereotype.Component;
+
+import k.engine.exception.GameEngineException;
+import k.engine.exception.InvalidStateException;
+import k.engine.exception.InvalidSymbolException;
 
 // TODO: Methods should be static, there is no state saved.
 @Component
@@ -40,56 +43,43 @@ public class GameEngine {
 		return isValid;
 	}
 
-	private Boolean isValidSymbol(Character symbol) {
-		return isValidPlayerSymbol(symbol) || symbol.toString().matches(EMPTY_SPACE_SYMBOL.toString());
-	}
-
 	private Boolean isValidPlayerSymbol(Character symbol) {
 		return symbol.toString().matches("[" + PLAYER_ONE_SYMBOL + PLAYER_TWO_SYMBOL + "]");
 	}
 
-	public Boolean isValidMove(String initialState, String newState, Character playerSymbol) {
-		Boolean isValid = false;
-		/**
-		 * Ensure that both states are of the expected size and they don't contain
-		 * garbage.
-		 */
-		if (isValidPlayerSymbol(playerSymbol) && isValidState(initialState) && isValidState(newState)
-				&& !initialState.equals(newState)) {
-			/**
-			 * Get indexes of differences in both strings.
-			 */
-			List<Integer> charDifIndexes = Arrays
-					.stream(IntStream.range(0, initialState.length())
-							.map(i -> initialState.charAt(i) != newState.charAt(i) ? 1 : 0).toArray())
-					.boxed().collect(Collectors.toList());
-			/**
-			 * The symbol being added is put in an empty position and is the symbol
-			 * corresponding to the player.
-			 */
-			if (charDifIndexes.size() == 1 && initialState.charAt(charDifIndexes.get(0)) == EMPTY_SPACE_SYMBOL
-					&& newState.charAt(charDifIndexes.get(0)) == playerSymbol) {
-				isValid = true;
-			}
+	private Character getOppositeSymbol(Character symbol) throws InvalidSymbolException {
+		if (!isValidPlayerSymbol(symbol)) {
+			throw new InvalidSymbolException(symbol);
 		}
-
-		return isValid;
+		return symbol == PLAYER_ONE_SYMBOL ? PLAYER_TWO_SYMBOL : PLAYER_ONE_SYMBOL;
 	}
 
 	/**
 	 * 
 	 * @param initialState
 	 * @param movePosition
-	 * @param playerSymbol
+	 * @param lasPlayerSymbol
 	 * @return The new state if the move was valid, else null.
+	 * @throws GameEngineException
 	 */
-	public String isValidMove(String initialState, Integer movePosition, Character playerSymbol) {
+	public String isValidMove(String initialState, Integer movePosition, Character lasPlayerSymbol)
+			throws GameEngineException {
 		String newState = null;
-		if (isValidPlayerSymbol(playerSymbol) && isValidState(initialState) && movePosition < STATE_LEN
-				&& initialState.charAt(movePosition) == EMPTY_SPACE_SYMBOL) {
-			newState = initialState.substring(0, movePosition) + playerSymbol
-					+ initialState.substring(movePosition + 1);
+		Character playerSymbol;
+		if (!isValidPlayerSymbol(lasPlayerSymbol)) {
+			throw new InvalidSymbolException(lasPlayerSymbol);
 		}
+		playerSymbol = getOppositeSymbol(lasPlayerSymbol);
+		if (!isValidState(initialState)) {
+			throw new InvalidStateException(initialState);
+		}
+		if (movePosition > STATE_LEN) {
+			throw new GameEngineException("Index " + movePosition + " is out of range for a move");
+		}
+		if (initialState.charAt(movePosition) != EMPTY_SPACE_SYMBOL) {
+			throw new GameEngineException("Index " + movePosition + " is not empty");
+		}
+		newState = initialState.substring(0, movePosition) + playerSymbol + initialState.substring(movePosition + 1);
 		return newState;
 	}
 

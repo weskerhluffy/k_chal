@@ -11,5 +11,7 @@ insert into UserAuthority(idUser, idAuthority) values (1, 1);
 insert into UserAuthority(idUser, idAuthority) values (2, 2);
 insert into UserAuthority(idUser, idAuthority) values (3, 2);
 
-insert into Game(state,idUserX,idUserO,idUserWin) values();
+insert into Game(state,idUserX,idUserO) values('_________',2,3);
+insert into Game(state,idUserX,idUserO) values('_________',3,4);
+insert into Game(state,idUserX,idUserO) values('_________',4,5);
 	
