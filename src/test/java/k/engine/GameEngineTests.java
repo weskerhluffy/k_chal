@@ -1,7 +1,6 @@
 package k.engine;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(properties = { "spring.jpa.hibernate.ddl-auto=none","spring.jpa.generate-ddl=false","spring.datasource.initialization-mode=never" })
 public class GameEngineTests {
 
 	// XXX:

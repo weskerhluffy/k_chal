@@ -1,0 +1,8 @@
+Func:
+	- Usuario crea juego
+	- Usuario elige juego y tirada
+		- Verifica jugada valida
+		- Avisa si gano/empato
+	- Usuario consulta juego
+No func:
+	- Seguridad

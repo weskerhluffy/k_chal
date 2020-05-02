@@ -1,7 +1,9 @@
 package k.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+
 import javax.inject.Named;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import k.model.Game;

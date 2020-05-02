@@ -32,3 +32,5 @@ mvnw
 mvnw.cmd
 
 *.log
+a.log*
+out
