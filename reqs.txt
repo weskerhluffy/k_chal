@@ -1,5 +1,6 @@
 Func:
 	- Usuario crea juego
+		- Con primer tiro
 	- Usuario elige juego y tirada
 		- Verifica jugada valida
 		- Avisa si gano/empato

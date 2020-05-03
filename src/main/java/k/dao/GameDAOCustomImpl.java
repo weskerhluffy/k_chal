@@ -35,7 +35,8 @@ public class GameDAOCustomImpl implements GameDAOCustom {
 	@Override
 	public Game findAny() {
 		Game game = null;
-		Query quer = entityManager.createQuery("from Game g where g.id=1");
+		Query quer = entityManager.createQuery("from Game g");
+		quer.setMaxResults(1);
 		log.debug("before q");
 		game = (Game) quer.getSingleResult();
 		log.debug("after q");

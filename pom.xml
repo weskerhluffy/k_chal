@@ -139,6 +139,9 @@
 							<goal>addTestSources</goal>
 							<goal>compileTests</goal>
 						</goals>
+						<configuration>
+							<debug>true</debug>
+						</configuration>
 					</execution>
 				</executions>
 				<dependencies>

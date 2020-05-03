@@ -30,9 +30,9 @@ public class GameEngine {
 	private static final String COLUMN_3_WIN_REGEX = "..W..W..W";
 	private static final String DIAG_1_WIN_REGEX = "W...W...W";
 	private static final String DIAG_2_WIN_REGEX = "..W.W.W..";
-	private static final String[] WIN_REGEXS_ARR = { ROW_1_WIN_REGEX, ROW_2_WIN_REGEX, ROW_3_WIN_REGEX,
-			COLUMN_1_WIN_REGEX, COLUMN_2_WIN_REGEX, COLUMN_3_WIN_REGEX, DIAG_1_WIN_REGEX, DIAG_2_WIN_REGEX };
-	private static final List<String> WIN_REGEXS = Arrays.asList(WIN_REGEXS_ARR);
+	// XXX: https://stackoverflow.com/questions/6520382/what-is-the-shortest-way-to-initialize-list-of-strings-in-java
+	private static final List<String> WIN_REGEXS = List.of(ROW_1_WIN_REGEX, ROW_2_WIN_REGEX, ROW_3_WIN_REGEX,
+			COLUMN_1_WIN_REGEX, COLUMN_2_WIN_REGEX, COLUMN_3_WIN_REGEX, DIAG_1_WIN_REGEX, DIAG_2_WIN_REGEX);
 
 	private Boolean isValidState(String state) {
 		Boolean isValid = false;
