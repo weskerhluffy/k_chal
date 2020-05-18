@@ -18,4 +18,10 @@ public class GameEndpoint {
 		log.info("CON ping");
 		return "pong";
 	}
+	
+	@GetMapping("/sec_ping")
+	public String secPing() {
+		log.info("sec test");
+		return "ok";
+	}
 }
